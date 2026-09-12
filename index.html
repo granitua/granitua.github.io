@@ -107,6 +107,7 @@ nav a:hover::after{width:100%}
   background:var(--gold);color:#171512;font-size:12.5px;font-weight:600;
   letter-spacing:.22em;text-transform:uppercase;padding:18px 34px;border-radius:2px;
   transition:.35s;border:1px solid var(--gold);
+  will-change:transform;
 }
 .btn:hover{background:transparent;color:var(--gold-soft)}
 .btn.ghost{background:transparent;color:var(--txt);border-color:rgba(255,255,255,.25);margin-left:14px}
@@ -334,6 +335,38 @@ footer .fnav a:hover{color:var(--gold-soft)}
 .dark-band>*{position:relative;z-index:1}
 .dark-band .label{margin-bottom:12px}
 .dark-band .sec-title{color:#f2efe8;margin:0}
+
+/* big CTA button */
+.btn.big{
+  padding:24px 48px;font-size:14px;letter-spacing:.26em;border-radius:3px;
+  box-shadow:0 12px 32px rgba(201,165,92,.22);
+}
+.btn.big:hover{
+  background:var(--gold);color:#171512;border-color:var(--gold);
+  transform:translateY(-3px);box-shadow:0 18px 42px rgba(201,165,92,.38);
+}
+@media(max-width:640px){.btn.big{padding:20px 34px;font-size:13px}}
+
+.btn-big{
+  padding:24px 54px;font-size:17px;font-weight:700;letter-spacing:.3em;
+  box-shadow:0 10px 30px rgba(201,165,92,.22);
+}
+.btn-big:hover{box-shadow:0 14px 36px rgba(201,165,92,.3)}
+@media(max-width:640px){.btn-big{padding:20px 44px;font-size:15px;font-weight:700;letter-spacing:.24em}}
+
+/* ---------- back to top ---------- */
+.totop{
+  position:fixed;left:18px;bottom:18px;z-index:94;width:48px;height:48px;border-radius:50%;
+  background:rgba(20,20,23,.92);border:1px solid var(--line);color:var(--gold-soft);
+  display:grid;place-items:center;cursor:pointer;
+  opacity:0;pointer-events:none;transform:translateY(10px);
+  transition:opacity .35s,transform .35s,background .3s,color .3s;
+  box-shadow:0 6px 18px rgba(0,0,0,.45);
+}
+.totop.show{opacity:1;pointer-events:auto;transform:none}
+.totop:hover{background:var(--gold);color:#141310}
+.totop svg{width:20px;height:20px}
+@media(max-width:640px){.totop{left:14px;bottom:88px;width:44px;height:44px}}
 </style>
 </head>
 <body>
@@ -372,8 +405,7 @@ footer .fnav a:hover{color:var(--gold-soft)}
       <h1 class="rv d1">Вироби з граніту,<br>що зберігають <em>пам'ять</em></h1>
       <p class="lead rv d2">Створюємо ексклюзивні пам'ятники та меморіальні комплекси з чорного й сірого граніту. Ручна робота, художнє гравіювання, бездоганний монтаж.</p>
       <div class="rv d3">
-        <a class="btn" href="portfolio.html">Переглянути портфоліо →</a>
-        <a class="btn ghost" href="#contact">Замовити консультацію</a>
+        <a class="btn btn-big" href="portfolio.html">Портфоліо</a>
       </div>
       <div class="hero-stats rv d4">
         <div><b>18</b><span>років досвіду</span></div>
@@ -520,6 +552,11 @@ footer .fnav a:hover{color:var(--gold-soft)}
   </a>
 </div>
 
+<!-- back to top -->
+<button class="totop" id="totop" aria-label="Вгору">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
 <script>
 /* header scroll */
 const hdr=document.getElementById('hdr');
@@ -555,6 +592,11 @@ addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;
   if(e.key==='ArrowLeft')show(cur-1);
   if(e.key==='ArrowRight')show(cur+1);});
 
+
+/* back to top */
+const totop=document.getElementById('totop');
+addEventListener('scroll',()=>totop.classList.toggle('show',scrollY>500),{passive:true});
+totop.onclick=()=>scrollTo({top:0,behavior:'smooth'});
 
 </script>
 </body>
