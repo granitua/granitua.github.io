@@ -193,15 +193,29 @@ if(pfg){
 }
 
 /* lightbox */
-.lb{position:fixed;inset:0;z-index:100;background:rgba(9,9,11,.94);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:40px}
+.lb{position:fixed;inset:0;z-index:100;background:rgba(9,9,11,.94);backdrop-filter:blur(6px);display:none;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:70px 16px 34px}
 .lb.open{display:flex;animation:fade .35s}
 @keyframes fade{from{opacity:0}}
-.lb img{max-height:88vh;max-width:88vw;object-fit:contain;border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.lb img{max-height:70vh;max-width:92vw;object-fit:contain;border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.6)}
+@media(max-width:640px){.lb img{max-height:64vh}}
 .lb .lb-x{position:absolute;top:26px;right:34px;font-size:36px;color:var(--txt);background:none;border:0;cursor:pointer}
-.lb .lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:none;border:1px solid var(--line);color:var(--gold-soft);width:52px;height:52px;border-radius:50%;font-size:20px;cursor:pointer;transition:.3s}
-.lb .lb-nav:hover{background:var(--gold);color:#141310}
+.lb .lb-nav{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:102;
+  background:none;border:0;color:var(--gold);border-radius:0;
+  width:80px;height:80px;display:grid;place-items:center;cursor:pointer;transition:.3s;
+}
+.lb .lb-nav:hover{color:var(--gold-soft);transform:translateY(-50%) scale(1.12)}
+.lb .lb-nav svg{width:46px;height:46px;display:block}
+.lb .prev{left:0}.lb .next{right:0}
+@media(max-width:640px){
+  .lb .lb-nav{width:50px;height:50px}
+  .lb .lb-nav svg{width:38px;height:38px}
+  .lb .prev{left:0}.lb .next{right:0}
+}
+
 .lb .prev{left:30px}.lb .next{right:30px}
-.lb .lb-cap{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:#d8d4cc}
+.lb .lb-cap{position:static;transform:none;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:21px;color:#d8d4cc;background:rgba(20,20,23,.8);border:1px solid var(--line);border-radius:3px;padding:12px 26px;max-width:92vw;text-align:center}
+@media(max-width:640px){.lb .lb-cap{font-size:16px;padding:10px 18px}}
 
 /* ---------- services ---------- */
 .svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(0,0,0,.08);border:1px solid rgba(0,0,0,.08);margin-top:56px}
@@ -358,6 +372,15 @@ footer .fnav a:hover{color:var(--gold-soft)}
 .totop:hover{background:var(--gold);color:#141310}
 .totop svg{width:20px;height:20px}
 @media(max-width:640px){.totop{left:14px;bottom:88px;width:44px;height:44px}}
+
+.lb .lb-nav,.lb .lb-nav:hover,.lb .lb-nav:active,.lb .lb-nav:focus{
+  background:none !important;border:0 !important;border-radius:0 !important;
+  box-shadow:none !important;outline:none !important;
+  -webkit-appearance:none !important;appearance:none !important;
+  -webkit-tap-highlight-color:transparent !important;
+}
+.lb .lb-nav:focus{outline:none}
+.lb .lb-nav::-moz-focus-inner{border:0}
 </style>
 </head>
 <body style="background:var(--bg)">
@@ -515,9 +538,9 @@ footer .fnav a:hover{color:var(--gold-soft)}
 
 <div class="lb" id="lb">
   <button class="lb-x" id="lbx">✕</button>
-  <button class="lb-nav prev" id="lbp">←</button>
+  <button class="lb-nav prev" id="lbp" aria-label="Попереднє фото"><svg viewBox="0 0 24 24" fill="none" stroke="url(#gprev)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="gprev" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E2C98F"/><stop offset="1" stop-color="#785C2C"/></linearGradient></defs><path d="M14 4.5L6.5 12l7.5 7.5M20.5 4.5L13 12l7.5 7.5"/></svg></button>
   <img id="lbimg" src="" alt="Портфоліо">
-  <button class="lb-nav next" id="lbn">→</button>
+  <button class="lb-nav next" id="lbn" aria-label="Наступне фото"><svg viewBox="0 0 24 24" fill="none" stroke="url(#gnext)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="gnext" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E2C98F"/><stop offset="1" stop-color="#785C2C"/></linearGradient></defs><path d="M10 4.5l7.5 7.5-7.5 7.5M3.5 4.5L11 12l-7.5 7.5"/></svg></button>
   <div class="lb-cap" id="lbcap"></div>
 </div>
 
